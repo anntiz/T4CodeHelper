@@ -1,0 +1,4 @@
+﻿<#+
+	string myNameSpace = "MyStudent";
+	string myConnectionString =string.Format(@"Data Source=.;Initial Catalog={0};Integrated Security=True", "StudentManager");	
+#>

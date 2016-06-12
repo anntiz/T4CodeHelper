@@ -1,0 +1,79 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@ include file="Manager.ttinclude" #>
+<#@ include file="config.ttinclude" #>
+<# var manager = Manager.Create(Host, GenerationEnvironment); #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Data" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#
+	SqlConnection conn = new SqlConnection(myConnectionString);
+	conn.Open();
+	System.Data.DataTable schema = conn.GetSchema("TABLES");
+	string selectQuery = "select * from @tableName";
+	SqlCommand command = new SqlCommand(selectQuery,conn);
+	SqlDataAdapter ad = new SqlDataAdapter(command);
+	System.Data.DataSet ds = new DataSet();        
+	foreach(System.Data.DataRow row in schema.Rows)
+	{ 
+	ds.Tables.Clear();
+	command.CommandText = selectQuery.Replace("@tableName",row["TABLE_NAME"].ToString());
+	ad.FillSchema(ds, SchemaType.Mapped, row["TABLE_NAME"].ToString());
+	manager.StartNewFile("BLL"+row["TABLE_NAME"].ToString().Trim()+".cs");
+	#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using <#= myNameSpace#>.Model;
+using <#= myNameSpace#>.DAL;
+using System.Data;
+
+namespace <#= myNameSpace#>.BLL
+{
+	public class BLL<#= row["TABLE_NAME"].ToString().Trim()#> 
+	{
+		private DAL<#= row["TABLE_NAME"].ToString().Trim()#> dal<#= row["TABLE_NAME"].ToString().Trim()#> = new DAL<#= row["TABLE_NAME"].ToString().Trim()#>();
+		public bool Add<#= row["TABLE_NAME"].ToString().Trim()#>(<#= row["TABLE_NAME"].ToString().Trim()#> <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>)
+		{
+			return dal<#= row["TABLE_NAME"].ToString().Trim()#>.Add<#= row["TABLE_NAME"].ToString().Trim()#>(<#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>);
+		}
+
+
+		public bool Delete<#= row["TABLE_NAME"].ToString().Trim()#>By<#= ds.Tables[0].Columns[0].ColumnName #>(int <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>)
+		{
+			return dal<#= row["TABLE_NAME"].ToString().Trim()#>.Delete<#= row["TABLE_NAME"].ToString().Trim()#>By<#= ds.Tables[0].Columns[0].ColumnName #>(<#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>);
+		}
+
+
+		public bool Modify<#= row["TABLE_NAME"].ToString().Trim()#>(<#= row["TABLE_NAME"].ToString().Trim()#> <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>)
+		{
+			return dal<#= row["TABLE_NAME"].ToString().Trim()#>.Modify<#= row["TABLE_NAME"].ToString().Trim()#>(<#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>);
+		}
+
+		public <#= row["TABLE_NAME"].ToString().Trim()#> Get<#= row["TABLE_NAME"].ToString().Trim()#>By<#= ds.Tables[0].Columns[0].ColumnName #>(int <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>)
+		{
+			return dal<#= row["TABLE_NAME"].ToString().Trim()#>.Get<#= row["TABLE_NAME"].ToString().Trim()#>By<#= ds.Tables[0].Columns[0].ColumnName #>(<#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>);
+		}
+
+
+		public IList<<#= row["TABLE_NAME"].ToString().Trim()#>> GetAll<#= row["TABLE_NAME"].ToString().Trim()#>()
+		{
+			return dal<#= row["TABLE_NAME"].ToString().Trim()#>.GetAll<#= row["TABLE_NAME"].ToString().Trim()#>();
+		}
+
+
+	}
+}
+<# 
+manager.EndBlock(); 
+}
+manager.Process(true); #>
