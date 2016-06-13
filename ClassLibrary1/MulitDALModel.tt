@@ -28,7 +28,8 @@
 	command.CommandText = selectQuery.Replace("@tableName",row["TABLE_NAME"].ToString());
 	ad.FillSchema(ds, SchemaType.Mapped, row["TABLE_NAME"].ToString());
 	manager.StartNewFile("DAL"+row["TABLE_NAME"].ToString().Trim()+".cs");
-	#>using System;
+	#>
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
