@@ -47,7 +47,7 @@ namespace <#= myNameSpace#>.DAL
 		 //foreach (DataColumn dc in ds.Tables[0].Columns)
 		{ #><#= ds.Tables[0].Columns[i].ColumnName #><# if(i!=ds.Tables[0].Columns.Count-1){ #>, <#} }  #>) VALUES(<#for(int i=1;i<ds.Tables[0].Columns.Count; i++)
 		 //foreach (DataColumn dc in ds.Tables[0].Columns)
-		{ #>@<#= ds.Tables[0].Columns[i].ColumnName #><# if(i!=ds.Tables[0].Columns.Count-1){ #>, <#} }  #>))";
+		{ #>@<#= ds.Tables[0].Columns[i].ColumnName #><# if(i!=ds.Tables[0].Columns.Count-1){ #>, <#} }  #>)";
 			SqlParameter[] parameters = {
 		<#for(int i=1;i<ds.Tables[0].Columns.Count; i++)
 		 //foreach (DataColumn dc in ds.Tables[0].Columns)
