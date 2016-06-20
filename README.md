@@ -10,7 +10,7 @@
 
 * 3、**MulitDALModel.tt** 和 **MulitDALModelDirect.tt** 都是生成DAL层的模板，两个文件**二选一**即可。
   *  A) MulitDALModelDirect.tt 生成的文件直接可用。SQL语句的参数部分如下所示：
-```
+```java
 SqlParameter[] parameters = {
                               new SqlParameter("@StudentClassName", classInfo.StudentClassName)
                             };
@@ -18,14 +18,14 @@ SqlParameter[] parameters = {
   
   * B) MulitDALModel.tt 生成的文件中SqlDbType的类型为C#数据类型，需要手工更改为SQL Server数据类型。
 SQL语句的参数部分如下所示：
-```
+```java
 SqlParameter[] parameters = {
                             new SqlParameter("@StudentClassName", SqlDbType.String, 50)
                             };
 parameters[0].Value = classInfo.StudentClassName;
 ```
     其中的 **SqlDbType.String** 应该更改为 **SqlDbType.VarChar**:
-```
+```java
 SqlParameter[] parameters = {
                             new SqlParameter("@StudentClassName", SqlDbType.VarChar, 50)
                             };
