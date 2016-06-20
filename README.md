@@ -24,22 +24,13 @@ SqlParameter[] parameters = {
                             };
 parameters[0].Value = classInfo.StudentClassName;
 ```
-其中的 **SqlDbType.String** 应该更改为 **SqlDbType.VarChar**:
+    其中的 **SqlDbType.String** 应该更改为 **SqlDbType.VarChar**:
 ```
 SqlParameter[] parameters = {
                             new SqlParameter("@StudentClassName", SqlDbType.VarChar, 50)
                             };
 parameters[0].Value = classInfo.StudentClassName;
 ```
-* 4、依次打开其他所有的.tt文件并保存一次；
-
-* 5、将产生的.cs文件（与.tt同名的.cs为空文件，不需要）复制到各项目中去（DBHelper.cs 的名字空间为 .DAL，默认位于DAL层中）；
-
-## 名字空间说明
-* 名字空间.Model :实体类
-* 名字空间.DAL: 数据访问层 
-* 名字空间.BLL： 业务逻辑层
-
 * 4、依次打开其他所有的.tt文件并保存一次；
 
 * 5、将产生的.cs文件（与.tt同名的.cs为空文件，不需要）复制到各项目中去（DBHelper.cs 的名字空间为 .DAL，默认位于DAL层中）；
