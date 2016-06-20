@@ -59,6 +59,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MulitDALModel.cs</LastGenOutput>
     </Content>
+    <Content Include="MulitDALModelDirect.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MulitDALModelDirect.cs</LastGenOutput>
+    </Content>
     <Content Include="MulitEntityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MulitEntityModel.cs</LastGenOutput>

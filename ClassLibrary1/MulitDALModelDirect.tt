@@ -51,14 +51,10 @@ namespace <#= myNameSpace#>.DAL
 			SqlParameter[] parameters = {
 		<#for(int i=1;i<ds.Tables[0].Columns.Count; i++)
 		 //foreach (DataColumn dc in ds.Tables[0].Columns)
-{ #>								new SqlParameter("@<#= ds.Tables[0].Columns[i].ColumnName #>", SqlDbType.<#= ds.Tables[0].Columns[i].DataType.Name #><# if(ds.Tables[0].Columns[i].MaxLength != -1){#>, <#= ds.Tables[0].Columns[i].MaxLength #><#}#>)<# if(i!=ds.Tables[0].Columns.Count-1){ #>, 
+{ #>								new SqlParameter("@<#= ds.Tables[0].Columns[i].ColumnName #>", <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>.<#= ds.Tables[0].Columns[i].ColumnName  #>)<# if(i!=ds.Tables[0].Columns.Count-1){ #>, 
 		<#}} #>
 
                                         };
-<#for(int i=1;i<ds.Tables[0].Columns.Count; i++)
-		 //foreach (DataColumn dc in ds.Tables[0].Columns)
-{ #>			parameters[<#= i-1#>].Value = <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>.<#= ds.Tables[0].Columns[i].ColumnName  #>;
-<#} #>
 			int n = DBHelper.ExecuteCommand(sql, parameters);
 			return n == 1;
 		}
@@ -67,8 +63,7 @@ namespace <#= myNameSpace#>.DAL
 		public bool Delete<#= row["TABLE_NAME"].ToString().Trim()#>By<#= ds.Tables[0].Columns[0].ColumnName #>(int <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>)
 		{
 			string sql = "DELETE FROM <#= row["TABLE_NAME"].ToString().Trim()#> WHERE <#= ds.Tables[0].Columns[0].ColumnName #> = @<#= ds.Tables[0].Columns[0].ColumnName #>";
-			SqlParameter parameter = new SqlParameter("@<#= ds.Tables[0].Columns[0].ColumnName #>", SqlDbType.<#= ds.Tables[0].Columns[0].DataType.Name #><# if(ds.Tables[0].Columns[0].MaxLength != -1){#>, <#= ds.Tables[0].Columns[0].MaxLength #><#}#>);
-			parameter.Value = <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>;
+			SqlParameter parameter = new SqlParameter("@<#= ds.Tables[0].Columns[0].ColumnName #>", <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>);
 			int n = DBHelper.ExecuteCommand(sql, parameter);
 			return n == 1;
 		}
@@ -82,14 +77,10 @@ namespace <#= myNameSpace#>.DAL
 			SqlParameter[] parameters = {
 		<#for(int i=0;i<ds.Tables[0].Columns.Count; i++)
 		 //foreach (DataColumn dc in ds.Tables[0].Columns)
-{ #>								new SqlParameter("@<#= ds.Tables[0].Columns[i].ColumnName #>", SqlDbType.<#= ds.Tables[0].Columns[i].DataType.Name #><# if(ds.Tables[0].Columns[i].MaxLength != -1){#>, <#= ds.Tables[0].Columns[i].MaxLength #><#}#>)<# if(i!=ds.Tables[0].Columns.Count-1){ #>, 
+{ #>								new SqlParameter("@<#= ds.Tables[0].Columns[i].ColumnName #>", <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>.<#= ds.Tables[0].Columns[i].ColumnName  #>)<# if(i!=ds.Tables[0].Columns.Count-1){ #>, 
 		<#}} #>
 
                                         };
-<#for(int i=0;i<ds.Tables[0].Columns.Count; i++)
-		 //foreach (DataColumn dc in ds.Tables[0].Columns)
-{ #>			parameters[<#= i#>].Value = <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#>.<#= ds.Tables[0].Columns[i].ColumnName  #>;
-<#} #>
 			int n = DBHelper.ExecuteCommand(sql, parameters);
 			return n == 1;
 		}
@@ -98,8 +89,7 @@ namespace <#= myNameSpace#>.DAL
 		{
 			<#= row["TABLE_NAME"].ToString().Trim()#> <#= row["TABLE_NAME"].ToString().Trim().Substring(0, 1).ToLower()+row["TABLE_NAME"].ToString().Trim().Substring(1)#> = null;
 			string sql = "SELECT * FROM <#= row["TABLE_NAME"].ToString().Trim()#> WHERE <#= ds.Tables[0].Columns[0].ColumnName #> = @<#= ds.Tables[0].Columns[0].ColumnName #>";
-			SqlParameter parameter = new SqlParameter("@<#= ds.Tables[0].Columns[0].ColumnName #>", SqlDbType.<#= ds.Tables[0].Columns[0].DataType.Name #><# if(ds.Tables[0].Columns[0].MaxLength != -1){#>, <#= ds.Tables[0].Columns[0].MaxLength #><#}#>);
-			parameter.Value = <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>;
+			SqlParameter parameter = new SqlParameter("@<#= ds.Tables[0].Columns[0].ColumnName #>", <#= ds.Tables[0].Columns[0].ColumnName.Substring(0,1).ToLower()+ds.Tables[0].Columns[0].ColumnName.Substring(1) #>);
 			using(SqlDataReader reader = DBHelper.ExecuteReader(sql, parameter))
 			{
 				if(reader.Read())
