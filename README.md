@@ -39,3 +39,6 @@ parameters[0].Value = classInfo.StudentClassName;
 * 名字空间.Model :实体类
 * 名字空间.DAL: 数据访问层 
 * 名字空间.BLL： 业务逻辑层
+
+## 存在问题
+ * 在部分版本的Visual Studio中，会存在找不到 .ttinclude文件问题，遇到这个情况的时候，请把两个.ttinclude文件的后缀名更改为.tt， 同时引用该文件的地方也做相同的修改。
